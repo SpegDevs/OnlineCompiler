@@ -29,24 +29,29 @@ module.exports = {
     fs.writeFile("input.moe", content, error => {
       if (error) {
         return res.status(500).json({
-          error1: error
+          output: error
         });
       }
       child = exec(
         `java -jar jar/spegmoe.jar input.moe`,
         (erro, stdout, stder) => {
           if (erro) {
+          console.log(erro);
             return res.status(500).json({
-              error1: erro
+              output: erro
             });
           }
           fs.readFile("output/output.txt", "utf8", (err, data) => {
+                    console.log(err);
+
             if (err) {
               return res.status(500).json({
-                error1: err
+                output: err
               });
             }
             fs.readFile("output/errors.txt", "utf8", (er, dat) => {
+                      console.log(er);
+
               if (err) {
                 return res.status(500).json({
                   error1: err,
@@ -61,6 +66,8 @@ module.exports = {
                         "output/finalOutput.txt",
                         "utf8",
                         (ERROR, dat) => {
+                                  console.log(ERROR);
+
                           removeDir("output/");
                           return res.status(200).json({
                             ok: true,
