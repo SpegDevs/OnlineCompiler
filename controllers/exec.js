@@ -25,6 +25,7 @@ const removeDir = dirPath => {
 module.exports = {
   exe: (req, res, next) => {
     const content = req.body.content;
+    console.log(req.body);
     fs.writeFile("input.moe", content, error => {
       if (error) {
         return res.status(500).json({
@@ -73,7 +74,7 @@ module.exports = {
                   removeDir("output/");
                   return res.status(200).json({
                     ok: false,
-                    error: dat
+                    output: dat
                   });
                 }
               }
